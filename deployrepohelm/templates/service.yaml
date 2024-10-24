@@ -1,0 +1,41 @@
+# Web Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+spec:
+  type: LoadBalancer  # Public IP for the web service
+  selector:
+    app: web
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+---
+# API Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  type: ClusterIP  # Internal service only
+  selector:
+    app: api
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001
+---
+# MongoDB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  type: ClusterIP  # Internal service only
+  selector:
+    app: mongo
+  ports:
+  - protocol: TCP
+    port: 27017
+    targetPort: 27017
