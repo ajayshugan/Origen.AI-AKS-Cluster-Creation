@@ -1,13 +1,26 @@
-# Ignore Terraform state and provider files
-.terraform/
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.backup
+.terraform/                   # Exclude the .terraform directory
+crash.log
+*.tfvars
+*.tfvars.json
+
+# Ignore Terraform lock files and provider binaries
 .terraform.lock.hcl
 
-# Ignore system and temporary files
-*.DS_Store
-*.swp
+# Ignore any sensitive environment files
+.env
 
-# Ignore executables and binaries
-*.exe
-*.dll
-*.so
+# Ignore macOS system files
+.DS_Store
+
+# Ignore Windows system files
+Thumbs.db
+
+# Ignore compressed files
+*.zip
+*.tar.gz
+*.rar
 
