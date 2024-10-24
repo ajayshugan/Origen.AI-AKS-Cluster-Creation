@@ -9,7 +9,7 @@ terraform.tfstate.*
 .terraform.lock.hcl
 
 # Ignore Terraform directories
-.terraform/
+.terraform/*
 
 # Ignore kubeconfig (as it may contain sensitive information)
 kubeconfig
