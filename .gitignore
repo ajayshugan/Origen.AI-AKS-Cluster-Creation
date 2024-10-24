@@ -1,26 +1,36 @@
-# Terraform files
-*.tfstate
-*.tfstate.*
-*.backup
-.terraform/                   # Exclude the .terraform directory
-crash.log
-*.tfvars
-*.tfvars.json
+# Ignore Terraform state files
+terraform.tfstate
+terraform.tfstate.*
 
-# Ignore Terraform lock files and provider binaries
+# Ignore backup files
+*.backup
+
+# Ignore Terraform-specific lock file
 .terraform.lock.hcl
 
-# Ignore any sensitive environment files
-.env
+# Ignore Terraform directories
+.terraform/
 
-# Ignore macOS system files
+# Ignore kubeconfig (as it may contain sensitive information)
+kubeconfig
+
+# Ignore any potential crash logs or Terraform crash reports
+crash.log
+
+# Helm-specific ignores
+charts/
+*.tgz
+*.tpl
+.helmignore
+
+# System files
 .DS_Store
-
-# Ignore Windows system files
 Thumbs.db
 
-# Ignore compressed files
-*.zip
-*.tar.gz
-*.rar
+# Ignore IDE and editor files
+.vscode/
+.idea/
+node_modules/
+_pycache_/
+*.pyc
 
