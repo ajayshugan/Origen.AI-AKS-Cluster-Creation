@@ -66,3 +66,7 @@ Security Best Practices
 
 Additional Improvements
       •	Azure Key Vault is leveraged for securely managing sensitive information like database credentials and API keys.
+
+Below is my Azure Login Credentials for validation Purpose:
+Email:shuganajays@outlook.com
+Password:Azure@24!
