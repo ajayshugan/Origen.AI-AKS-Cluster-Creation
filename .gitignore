@@ -1,0 +1,13 @@
+# Ignore Terraform state and provider files
+.terraform/
+.terraform.lock.hcl
+
+# Ignore system and temporary files
+*.DS_Store
+*.swp
+
+# Ignore executables and binaries
+*.exe
+*.dll
+*.so
+
