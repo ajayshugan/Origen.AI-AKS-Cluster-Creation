@@ -15,16 +15,16 @@ terraform {
 
   # Backend configuration to store the state in Azure Blob Storage
   backend "azurerm" {
-    resource_group_name   = "Origen.AI_ResourceGroup"  # Azure Resource Group (same as used in AKS)
-    storage_account_name  = "origenaiterraform"       # Azure Storage Account name (update with actual value)
-    container_name        = "terraformstate"           # Blob Container name (create this container in the storage account)
-    key                   = "terraform.tfstate"        # State file name
+    resource_group_name   = "Origen.AI_ResourceGroup"  
+    storage_account_name  = "origenaiterraform"      
+    container_name        = "terraformstate"           
+    key                   = "terraform.tfstate"        
   }
 }
 
 provider "azurerm" {
   features {}
-  subscription_id            = "80f75c38-5d92-4b55-a1f9-4f39d5a25871"  # Subscription ID (no changes)
+  subscription_id            = "80f75c38-5d92-4b55-a1f9-4f39d5a25871"  
   skip_provider_registration = true
 }
 
@@ -73,20 +73,20 @@ resource "local_file" "kubeconfig" {
 
 # Kubernetes provider to use kubeconfig
 provider "kubernetes" {
-  config_path = local_file.kubeconfig.filename  # Ensure correct path to kubeconfig
+  config_path = local_file.kubeconfig.filename  
 }
 
 # Helm provider to use kubeconfig
 provider "helm" {
   kubernetes {
-    config_path = local_file.kubeconfig.filename  # Ensure correct path to kubeconfig
+    config_path = local_file.kubeconfig.filename  
   }
 }
 
 # Helm chart for deploying the Web application (frontend)
 resource "helm_release" "frontend" {
   name       = "frontend-app"
-  chart      = "./deployrepohelm"  # Path to the folder containing Chart.yaml and templates/
+  chart      = "./deployrepohelm"  
   namespace  = "default"
 
   set {
@@ -109,13 +109,13 @@ resource "helm_release" "frontend" {
     value = "3"
   }
 
-  depends_on = [azurerm_kubernetes_cluster.aks]  # Ensure AKS cluster is created before deploying Helm chart
+  depends_on = [azurerm_kubernetes_cluster.aks]  
 }
 
 # Helm chart for deploying the Backend application (API)
 resource "helm_release" "api" {
   name       = "api-app"
-  chart      = "./deployrepohelm"  # Path to the folder containing Chart.yaml and templates/
+  chart      = "./deployrepohelm"  
   namespace  = "default"
 
   set {
@@ -143,7 +143,7 @@ resource "helm_release" "api" {
     value = "mongodb://mongo-service:27017"
   }
 
-  depends_on = [azurerm_kubernetes_cluster.aks]  # Ensure AKS cluster is created before deploying Helm chart
+  depends_on = [azurerm_kubernetes_cluster.aks]  
 }
 
 # Helm chart for MongoDB deployment with hardcoded credentials
@@ -155,12 +155,12 @@ resource "helm_release" "mongo" {
 
   set {
     name  = "auth.rootPassword"
-    value = "myrootpassword"  # Hardcoded root password
+    value = "myrootpassword"  
   }
 
   set {
     name  = "auth.username"
-    value = "myusername"  # Hardcoded username
+    value = "myusername"  
   }
 
   set {
@@ -183,7 +183,7 @@ resource "helm_release" "mongo" {
     value = "10Gi"
   }
 
-  depends_on = [azurerm_kubernetes_cluster.aks]  # Ensure AKS cluster is created before deploying MongoDB
+  depends_on = [azurerm_kubernetes_cluster.aks]  
 }
 
 # Horizontal Pod Autoscaler for Backend
@@ -213,6 +213,6 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "api_hpa" {
     }
   }
 
-  depends_on = [azurerm_kubernetes_cluster.aks]  # Ensure AKS cluster is created before applying autoscaler
+  depends_on = [azurerm_kubernetes_cluster.aks]  
 }
 
